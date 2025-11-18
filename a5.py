@@ -16,7 +16,7 @@ def remove_if_exists(lst: Any, elem: Any) -> None:
     if isinstance(lst, list) and elem in lst:
         lst.remove(elem)
 
-
+#
 # NOTE: The linter will complain at you due to the code using member variables like row,
 # num_nums_placed & size since you haven't added those in the constructor. Implement the
 # constructor before worrying about these errors (if they're still there after you've
@@ -134,7 +134,7 @@ class Board:
             for col in row:
                 if col ==[]:
                     return True
-                return False
+        return False
 
     def goal_test(self) -> bool:
         """Check if we've completed the puzzle (if we've placed all the numbers).
@@ -165,6 +165,7 @@ class Board:
         for r in range(self.size):
             remove_if_exists(self.rows[r][column], assignment)
 
+        subgrid_coords = self.subgrid_coordinates(row, column)
         for (r,c) in subgrid_coords:
             remove_if_exists(self.rows[r][c], assignment)
 
@@ -181,12 +182,12 @@ def DFS(state: Board) -> Board:
     Returns:
         either None in the case of invalid input or a solved board
     """
-    the_stack = Stack
+    the_stack = Stack()
     the_stack.push(state)
     iterations = 0
     start_time = time.time()
 
-    while not the_stack.is_empty:
+    while not the_stack.is_empty():
         iterations +=1
         current_board: Board = the_stack.pop()
         if current_board.goal_test():
